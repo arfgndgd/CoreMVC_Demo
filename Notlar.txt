@@ -1,6 +1,6 @@
 
 
-Core MVC platform baðýmsýz çalýþmamýzý saðlayan bir teknolojidir.
+Core MVC platform baðýmsýz çalýþmamýzý saðlayan bir teknolojidir. Farklý platformlarda, serverlarda çalýþabilmemizi saðlar. Dependency Injectiona daha uygundur!! (Bunu mvcde kendi elimizle interface yazarak yapabiliriz, boomm.)
 
 CoreMVCde interfacelerle çalýþmanýn nedeni:
 	SOLIDin interface segregation, dependency inversion yapýlýrýný .Net Frameworke göre daha uyumlu çalýþmasýndan dolayýdýr.
@@ -71,3 +71,6 @@ VMClasses içine VMlerimi açýyoruz
 
 CoreMVCde usingleri yazmak için webconfig yoktur. Usingleri _ViewImports.cshtml içine yazarýz
 	_ViewImports.cshtml: Viewlarýmýzýn kullanacaðý ortak namespace alanlarýný yazdýðýmýz dosyadýr.
+
+Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip viewlarý açýyoruz)
+	.Net Core, MVC Helper'larýný korumasýnýn yaný sýra daha kolay ve daha performanslý bir yapý da sunar. Bunlara Tag Helper'lar denir. Tag Helper'lar normal HTML taglerinin icerisine yazýlan attributelardýr. Kullanablimek icin namespace'leri gereklidir(Zaten _ViewImportsda vardýr)
