@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoreMVC_Demo.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20201223141555_olustur")]
-    partial class olustur
+    [Migration("20201223153805_veritabanı")]
+    partial class veritabanı
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace CoreMVC_Demo.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descriptons")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

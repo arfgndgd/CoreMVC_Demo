@@ -1,4 +1,5 @@
 ﻿using CoreMVC_Demo.Models.Context;
+using CoreMVC_Demo.Models.Entities;
 using CoreMVC_Demo.VMClasses;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -28,6 +29,8 @@ namespace CoreMVC_Demo.Controllers
         }
 
         //.Net Core, MVC Helper'larinizi korumasının yanı sıra size daha kolay ve daha performanslı bir yapı da sunar...Bunlara Tag Helper'lar denir. Tag Helper'lar normal HTML taglerinin icerisine yazılan attribute'lardır. Kullanablimek icin namespace'leri gereklidir(Zaten _ViewImportsda vardır)
+
+        //Projeyi watch run olarak izleyebilmek adına projenin klasorune gidip cmd ekranına girerek ilgili terminale dotnet watch run komutunu yazmak gerekir. Böylece projede yaptıklarını kaydettikten sonra çalışma anında sayfanızı refresh ederek degişiklikleri gözlemleyebilirsiniz.
         public IActionResult Index()
         {
             CategoryVM cvm = new CategoryVM
@@ -35,6 +38,19 @@ namespace CoreMVC_Demo.Controllers
                 Categories = _db.Categories.ToList()
             };
             return View(cvm);
+        }
+
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCategory([Bind(Prefix ="Category")] Category category)//property ismiyle parametre isminin tutmasıyla ilgili
+        {
+            _db.Categories.Add(category);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

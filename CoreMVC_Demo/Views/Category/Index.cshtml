@@ -23,15 +23,15 @@ else
         <tr>
             <th>CategoryName</th>
             <th>Description</th>
-            <th colspan="2">Islemler</th>
+            <th style="text-align:center" colspan="2">Islemler</th>
         </tr>
         @foreach (Category item in Model.Categories)
-        {//razor view syntaxlarını da kullanabiliriz
+        {//razor view syntaxlarını da kullanabiliriz 
             <tr>
                 <td>
                     @item.CategoryName
                 </td>
-                <td>@item.Descripton</td>
+                <td>@item.Description</td>
                 <td>
                     <a class="btn btn-warning" asp-action="UpdateCategory" asp-controller="Category">Kategori Güncelle</a>
                 </td>
