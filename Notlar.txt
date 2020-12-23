@@ -1,0 +1,73 @@
+
+
+Core MVC platform baðýmsýz çalýþmamýzý saðlayan bir teknolojidir.
+
+CoreMVCde interfacelerle çalýþmanýn nedeni:
+	SOLIDin interface segregation, dependency inversion yapýlýrýný .Net Frameworke göre daha uyumlu çalýþmasýndan dolayýdýr.
+	Interface, miras vermede classtan daha baðýmsýzdýr ve daha fazla kümeleme yapabiliriz.(Repositoryleri de interface olarak ayrý açacaðýz)
+
+	Interface segragation: interfacelerin ayrý ayrý görevleri tek bir çatý altýnda toplamaktansa sorumluluklarýný daha fazla ayýrmaktýr. Mesela Repositoryleri açtýðýmýzda her class için ayrý repository açarýz. (ICategoryRepository, IProductRepository)
+	Dependency Inversion: Baðýmlýlýklarýn azalmasý, gevþek tutulmasýdýr. Interface segragation ile zaten sorumluluklarý azalttýk bu da dependency inversiona uyar.
+	
+	Dependency Inversion prensibini uygulamak için Dependency Injection dediðimiz tasarým paternini kullanýrýz. Bu pattern istediðimiz þekilde istediðimiz sorumluluðun hemen o an için enjekte edilmesini saðlayan bir tasarým paternidir. Dependecy Injection en rahat interface yapýsý ile kullanýlabilir, böylece istediðimiz an sorumluluðu deðiþtirebiliriz.
+
+****************************************************************************************************
+
+
+Dependencies->Manage NuGet Packages:
+				-EntityFrameworkCore (CodeFirst için)
+				-EntityFrameworkCore.Tools (Migrations için)
+				-EntityFrameworkCore.SqlServer
+
+Sil:
+	Models->ErrorViewModel
+	Views->Home->Index,Privacy
+		   Shared->	Error
+
+appsettings.json -> connectionStringi yaz 
+
+DEPENDENCY INJECTÝON
+Startup-> AddDbContextPool (singloton pattern görevi görür) baðlantý "MyConnection" sayesinde olur.
+appsetting.json ->buradan MyConnection alýr (veritabaný ayarlamalarý)
+MyContext -> constructora yazdýðýmýz "options" parametresine yukarýdaki baðlantýyý yolluryor (Dependencyy Injection)
+
+Models->MyContext.cs (appsetting.json içindeki connectionString burada da yapýlabilir)
+		Startup.cs
+	Burada önemli Configurations ayarlamalarý yapýlýr. Startup.cs içinde Pool ayarlamalarý ona karþýlýk olarak da MyContext içinde "MyConnection"ý temsil eden options ayarlamalarýný yapmamýz lazzým
+
+Yukarýdaki ayarlamalardan sonra classlarýmýzý açabiliriz
+
+(Polymorphism)
+Çoka çok iliþkide .NetFramework'te MAP katmanýnda yaptýðýmýz EntityTypeConfiguration'a karþýlýk gelen ayarlamalarý CoreMVCde farklý bir yerde yaparýz. (IEntityTypeConfiguration<T>)
+Ancak Interface üzerinden ayarlamalarý yapacaðýmýz için MAPteki gibi constructor içinde yapamayýz çünkü interfacelerin constructorý yoktur.
+Bu iliþkileri tanýmlamak için yeni bir class açarýz:
+	BaseConfiguration.cs içinde  Generic yapýda(<T>) kullanarak IEntityTypeConfiguration<T> ile BaseEntity miras göstererek implement ettikten sonra ayarlamalar yapýlabilir.(Her class için farklý class açarýz)
+	BaseConfiguration.cs içinde implement ettiðimiz yapýya "virtual" eklersek override ile ayarlama yapacaðýmýz classlarda miras almayý engellemiþ oluruz
+
+
+Ýliþkilerle ilgili durumlar bittikten sonra;
+	MyContext içinde override->OnModelCreating içine Configuration uygulanan sýnýfý yazarýz
+	Daha sonra DbSet<> ile classlarýmýzý veritabanýna tanýmlarýz
+
+
+Migrations(Migration kodlarý MVCdekinden farklýdýr)
+
+	add-migration <parametre(herhangi bir yazý)> sonrasýnda update-database
+
+
+Artýk Controller üzerinde çalýþabilliriz
+************************************************************************************************
+CoreMVCde interfacelerle çalýþmanýn nedeni:
+	SOLIDin interface segregation, dependency inversion yapýlýrýný .Net Frameworke göre daha uyumlu çalýþmasýndan dolayýdýr.
+	Interface, miras vermede classtan daha baðýmsýzdýr ve daha fazla kümeleme yapabiliriz.(Repositoryleri de interface olarak ayrý açacaðýz)
+
+	Interface segragation: interfacelerin ayrý ayrý görevleri tek bir çatý altýnda toplamaktansa sorumluluklarýný daha fazla ayýrmaktýr. Mesela Repositoryleri açtýðýmýzda her class için ayrý repository açarýz. (ICategoryRepository, IProductRepository)
+	Dependency Inversion: Baðýmlýlýklarýn azalmasý, gevþek tutulmasýdýr. Interface segragation ile zaten sorumluluklarý azalttýk bu da dependency inversiona uyar.
+************************************************************************************************
+
+Controllerda constructor açýyoruz..
+
+VMClasses içine VMlerimi açýyoruz
+
+CoreMVCde usingleri yazmak için webconfig yoktur. Usingleri _ViewImports.cshtml içine yazarýz
+	_ViewImports.cshtml: Viewlarýmýzýn kullanacaðý ortak namespace alanlarýný yazdýðýmýz dosyadýr.
