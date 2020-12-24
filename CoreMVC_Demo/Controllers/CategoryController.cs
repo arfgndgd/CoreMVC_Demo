@@ -26,6 +26,9 @@ namespace CoreMVC_Demo.Controllers
         public CategoryController(MyContext db)//kısmi bir dependency injection uygulanır çünkü interface kullanılmamıştır. İleride MyContext interface olabilir, database interface olarak kullanılabilir. Bunun nedeni databasein miras aldığı DbContext tamamen interfacelerden alınmıştır.
         {
             _db = db;
+            //Constructor bir classtan instance alındığında veya classtan miras alındığında tetiklenir
+
+            //Ancak actionlar tetiklendiğinde, tarayıcıda host/action olduğunda çalışmaz. İlk tetiklenmesi gereken Controllerdır.
         }
 
         //.Net Core, MVC Helper'larinizi korumasının yanı sıra size daha kolay ve daha performanslı bir yapı da sunar...Bunlara Tag Helper'lar denir. Tag Helper'lar normal HTML taglerinin icerisine yazılan attribute'lardır. Kullanablimek icin namespace'leri gereklidir(Zaten _ViewImportsda vardır)
@@ -49,6 +52,33 @@ namespace CoreMVC_Demo.Controllers
         public IActionResult AddCategory([Bind(Prefix ="Category")] Category category)//property ismiyle parametre isminin tutmasıyla ilgili
         {
             _db.Categories.Add(category);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult UpdateCategory(int id)
+        {
+            CategoryVM cvm = new CategoryVM()
+            {
+                Category = _db.Categories.Find(id)
+            };
+            return View(cvm);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCategory(Category category)
+        {
+            Category toBeUpdated = _db.Categories.Find(category.ID);
+            toBeUpdated.CategoryName = category.CategoryName;
+            toBeUpdated.Description = category.Description;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        public IActionResult DeleteCategory(int id)
+        {
+            _db.Categories.Remove(_db.Categories.Find(id));
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

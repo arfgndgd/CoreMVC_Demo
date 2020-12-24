@@ -1,0 +1,47 @@
+﻿@model ProductVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ürünler</h1>
+@if(Model.Products.Count==0)
+{
+    <div class="jumbotron">
+        Henüz hicbir ürün eklenmemiş.. Ürün eklemek icin <a asp-action="AddProduct" asp-controller="Product">tıklayınız</a>
+    </div>
+}
+else
+{
+    <table class="table table-hover">
+        <tr>
+            <th>ProductName</th>
+            <th>UnitPrice</th>
+            <th>UnitInStock</th>
+            <th>Category</th>
+            <th style="text-align:center" colspan="2">Islemler</th>
+        </tr>
+        @foreach (Product item in Model.Products)
+        {
+            <tr>
+                <td>@item.ProductName</td>
+                <td>@item.UnitInPrice</td>
+                <td>@item.UnitInStock</td>
+                @if (@item.Category != null)
+                {
+                    <td>@item.Category.CategoryName</td>
+                }
+                else
+	            {
+                    <td>Kategori Belirtilmemiş</td>
+	            }
+                <td>
+                <a class="btn btn-warning" asp-action="UpdateProduct" asp-controller="Product" asp-route-id="@item.ID">Ürün Güncelle</a>
+                </td>
+                <td>
+                <a class="btn btn-danger"asp-action="DeleteProduct" asp-controller="Product" asp-route-id="@item.ID">Ürün Sil</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+

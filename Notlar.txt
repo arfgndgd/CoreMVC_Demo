@@ -74,3 +74,5 @@ CoreMVCde usingleri yazmak için webconfig yoktur. Usingleri _ViewImports.cshtml 
 
 Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip viewlarý açýyoruz)
 	.Net Core, MVC Helper'larýný korumasýnýn yaný sýra daha kolay ve daha performanslý bir yapý da sunar. Bunlara Tag Helper'lar denir. Tag Helper'lar normal HTML taglerinin icerisine yazýlan attributelardýr. Kullanablimek icin namespace'leri gereklidir(Zaten _ViewImportsda vardýr)
+
+	**CoreMVCde viewlar Razor View olarak açýlmalý
