@@ -34,6 +34,8 @@ namespace CoreMVC_Demo
             services.AddDbContextPool<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"))); //Baðlantý ayarýmýzý burada belirlemiþþ olduk. Context sýnýfýnda ayarýný yapmamýz lazým 
 
 
+            //Authentication iþlemi
+
             services.AddControllersWithViews();
         }
 
@@ -61,7 +63,7 @@ namespace CoreMVC_Demo
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Employee}/{action=AddEmployee}/{id?}");
+                    pattern: "{controller=Employee}/{action=EmployeeList}/{id?}");
             });
         }
     }

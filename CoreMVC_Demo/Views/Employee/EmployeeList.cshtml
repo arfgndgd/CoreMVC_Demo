@@ -1,0 +1,33 @@
+﻿@model EmployeeVM
+@{
+    ViewData["Title"] = "EmployeeList";
+}
+
+<h1>EmployeeList</h1>
+
+@if (Model.Employees.Count == 0)
+{
+    <div class="jumbotron">
+        Henüz hiçbir çalışan eklenmemiş... <a asp-controller="Employee" asp-action="AddEmployee">Tıklayınız</a>
+    </div>
+}
+else
+{
+    <h1>@Html.ActionLink("Çalışan Ekle", "AddEmployee")</h1>
+    <table class="table table-hover">
+        <tr>
+            <th>Çalışan İsmi</th>
+            <th style="text-align:center" colspan="2">İşlemler</th>
+        </tr>
+        @foreach (Employee item in Model.Employees)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.UserRole</td>
+                <td><a class="btn btn-warning" asp-controller="Employee" asp-action="UpdateEmployee" asp-route-id="@item.ID">Güncelle</a></td>
+                <td><a class="btn btn-danger" asp-controller="Employee" asp-action="DeleteEmployee" asp-route-id="@item.ID">Sil</a></td>
+            </tr>
+
+        }
+    </table>
+}
