@@ -6,6 +6,7 @@
 <h1>Kategori Ekleme Sayfası</h1>
 
 <!--Formu da artık actionlik ile açmıyoruz. TagHelper ile HTMLHelperlar aynı anda kullanılabilir. Ancak Html helperda "placeholder" kullanmak gerekir.-->
+<h1>@Html.ActionLink("Ürün Ekle", "AddProduct")</h1>
 <form asp-action="AddCategory" asp-controller="Category" method="post">
     <div>
         <input type="text" asp-for="Category.CategoryName" placeholder="Lütfen Kategori ismi giriniz" />

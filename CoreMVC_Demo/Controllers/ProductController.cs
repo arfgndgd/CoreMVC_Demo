@@ -1,6 +1,7 @@
 ﻿using CoreMVC_Demo.Models.Context;
 using CoreMVC_Demo.Models.Entities;
 using CoreMVC_Demo.VMClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoreMVC_Demo.Controllers
 {
+    
     public class ProductController : Controller
     {
         //Constructor bir classtan instance alındığında veya classtan miras alındığında tetiklenir 
@@ -28,6 +30,7 @@ namespace CoreMVC_Demo.Controllers
             };
             return View(pvm);
         }
+        
         public IActionResult AddProduct()
         {
             ProductVM pvm = new ProductVM

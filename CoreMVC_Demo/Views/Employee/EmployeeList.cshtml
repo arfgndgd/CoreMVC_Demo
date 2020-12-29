@@ -3,7 +3,6 @@
     ViewData["Title"] = "EmployeeList";
 }
 
-<h1>EmployeeList</h1>
 
 @if (Model.Employees.Count == 0)
 {
@@ -13,7 +12,7 @@
 }
 else
 {
-    <h1>@Html.ActionLink("Çalışan Ekle", "AddEmployee")</h1>
+  
     <table class="table table-hover">
         <tr>
             <th>Çalışan İsmi</th>

@@ -2,14 +2,18 @@
 @{
     ViewData["Title"] = "UpdateEmployee";
 }
-
-<h1>UpdateEmployee</h1>
-
 <div class="row">
     <div class="col-md-4">
         <form asp-controller="Employee" asp-action="UpdateEmployee" method="post">
-            <input type="hidden"asp-for="Employee.ID"/>
-            <input type="text" asp-for="Employee.FirstName" placeholder="Çalışan Gir" />
+            <div>
+                <input type="hidden" asp-for="Employee.ID" />
+                <input type="text" asp-for="Employee.FirstName" placeholder="Çalışan Gir" />
+                <select asp-for="Employee.UserRole" asp-items="Html.GetEnumSelectList<UserRole>()">
+                </select>
+                <button class="btn btn-primary">Güncelle</button>
+            </div>
+            
+            
         </form>
     </div>
 </div>

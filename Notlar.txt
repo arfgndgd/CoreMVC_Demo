@@ -76,12 +76,21 @@ Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip v
 	.Net Core, MVC Helper'larýný korumasýnýn yaný sýra daha kolay ve daha performanslý bir yapý da sunar. Bunlara Tag Helper'lar denir. Tag Helper'lar normal HTML taglerinin icerisine yazýlan attributelardýr. Kullanablimek icin namespace'leri gereklidir(Zaten _ViewImportsda vardýr)
 
 	**CoreMVCde viewlar Razor View olarak açýlmalý
+	Kullanýcý rolü gibi parametrelerin düzenlemesini viewlarda yaparýz 
 
 
-
-**AUTHERIZATION(Yetki) ayarlamalarý MVCden biraz farklýdýr	
+**AUTHORIZATION(Yetki) ayarlamalarý MVCden biraz farklýdýr	
 	CommonTools klasörü açtýk
 		SessionExtension classý aç "Static" yap  (Sepet iþleminde kullandýðýmýz sessionlar gibi)
 		Session classýnýn içinde metotlarýn Extension olmasý lazým kafamýza göre bir isimlendirme olmaz.
 
 	HomeControllera Login IAcitoný açtýk burada Autherization yapacaðýz. Login ve Logout için async(asekron) metod kullandýk bunu await ile yaptýk ancak metoda async keywordu ve Task<>(Görev) eklemek gerekir.
+
+	Authentication
+	[Authorize(Roles = "Admin")] EmployeeControllera ekledik ancak bi takým ayarlamalar yapmamýz lazým.
+		Startup->Configure->app.UseAuthorization(); bu metod yetki var mý yok mu kontrol eder.
+		Startup->ConfigureServices->services.AddAuthentication -> authentication iþlemini yapmak için servisi burada yarattmak gerekir.
+		
+	Hangi controllera koyar isek onda Yetkilendirme yapar. Direkt namespace koyarsak listlemeye bile ulaþamayýz
+
+		Burada zaten Configure içinde app.UseAuthorization(Yetkilendirmme için) var ancak "bundan önce" app.UseAuthenticationda eklemek gerekir. Kesinlikle önce Authentication

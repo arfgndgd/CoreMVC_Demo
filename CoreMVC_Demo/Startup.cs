@@ -1,4 +1,5 @@
 using CoreMVC_Demo.Models.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,7 +35,13 @@ namespace CoreMVC_Demo
             services.AddDbContextPool<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"))); //Baðlantý ayarýmýzý burada belirlemiþþ olduk. Context sýnýfýnda ayarýný yapmamýz lazým 
 
 
-            //Authentication iþlemi
+            //***Önemli: Authentication iþlemini yapabilmek için servisi burada yaratmak gerekir.
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+
+                options.LoginPath = "/Home/Login";
+
+            });
 
             services.AddControllersWithViews();
         }
@@ -57,13 +64,16 @@ namespace CoreMVC_Demo
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //Authenticationý Authorizationdan önce vermeye özen göstermek gerekir.
+            app.UseAuthentication();//kullanýcý kim bunu algýlar
+            
+            app.UseAuthorization(); //Yetkimiz var mý yok mu yani durumlarýnda (Authorization) çalýþacak metotdur.
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Employee}/{action=EmployeeList}/{id?}");
+                    pattern: "{controller=Product}/{action=Index}/{id?}");
             });
         }
     }

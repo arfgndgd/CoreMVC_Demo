@@ -53,9 +53,12 @@ namespace CoreMVC_Demo.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserRole")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.ToTable("Employee");
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("CoreMVC_Demo.Models.Entities.Order", b =>
@@ -78,7 +81,7 @@ namespace CoreMVC_Demo.Migrations
 
                     b.HasIndex("EmployeeID");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("CoreMVC_Demo.Models.Entities.OrderDetail", b =>
