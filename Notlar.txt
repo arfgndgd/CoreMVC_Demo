@@ -40,7 +40,7 @@ Yukarýdaki ayarlamalardan sonra classlarýmýzý açabiliriz
 (Polymorphism)
 Çoka çok iliþkide .NetFramework'te MAP katmanýnda yaptýðýmýz EntityTypeConfiguration'a karþýlýk gelen ayarlamalarý CoreMVCde farklý bir yerde yaparýz. (IEntityTypeConfiguration<T>)
 Ancak Interface üzerinden ayarlamalarý yapacaðýmýz için MAPteki gibi constructor içinde yapamayýz çünkü interfacelerin constructorý yoktur.
-Bu iliþkileri tanýmlamak için yeni bir class açarýz:
+Bu iliþkileri tanýmlamak için yeni bir klasör içinde class açarýz:
 	BaseConfiguration.cs içinde  Generic yapýda(<T>) kullanarak IEntityTypeConfiguration<T> ile BaseEntity miras göstererek implement ettikten sonra ayarlamalar yapýlabilir.(Her class için farklý class açarýz)
 	BaseConfiguration.cs içinde implement ettiðimiz yapýya "virtual" eklersek override ile ayarlama yapacaðýmýz classlarda miras almayý engellemiþ oluruz
 
@@ -76,3 +76,12 @@ Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip v
 	.Net Core, MVC Helper'larýný korumasýnýn yaný sýra daha kolay ve daha performanslý bir yapý da sunar. Bunlara Tag Helper'lar denir. Tag Helper'lar normal HTML taglerinin icerisine yazýlan attributelardýr. Kullanablimek icin namespace'leri gereklidir(Zaten _ViewImportsda vardýr)
 
 	**CoreMVCde viewlar Razor View olarak açýlmalý
+
+
+
+**AUTHERIZATION(Yetki) ayarlamalarý MVCden biraz farklýdýr	
+	CommonTools klasörü açtýk
+		SessionExtension classý aç "Static" yap  (Sepet iþleminde kullandýðýmýz sessionlar gibi)
+		Session classýnýn içinde metotlarýn Extension olmasý lazým kafamýza göre bir isimlendirme olmaz.
+
+	HomeControllera Login IAcitoný açtýk burada Autherization yapacaðýz. Login ve Logout için async(asekron) metod kullandýk bunu await ile yaptýk ancak metoda async keywordu ve Task<>(Görev) eklemek gerekir.
