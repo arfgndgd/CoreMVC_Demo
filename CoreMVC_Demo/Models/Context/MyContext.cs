@@ -12,6 +12,7 @@ namespace CoreMVC_Demo.Models.Context
     public class MyContext:DbContext
     {
         //Modelin configurasyon ayarları, appsetting.json içindeki connectionString burada da yapılabilir,SqlServer indirmek gerekir.
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
 

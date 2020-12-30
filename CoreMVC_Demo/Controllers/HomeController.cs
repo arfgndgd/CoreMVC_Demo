@@ -33,7 +33,7 @@ namespace CoreMVC_Demo.Controllers
          Async metotlar her zaman generic bir Task döndürmek zorundadır. İstersek döndürülen Task'i kullanabilir istersek kulllanmayız ama döndürmek zorundayız.
         Task classı asenkron metotların çalışma prensipleri hakkkında ayrınıtlı bilgiyi tutan(Metot calısırken hata var mı,metodun bu görevi yapma sırasında kendisine eş zamanlı gelen istekler,metodun calısma durumu(success,flawed)) O yüzden normal şartlarda döndürecegimiz değeri Task'e generic olarak vermek zorundayız.
 
-        Login Logout tıklamaları için SignInAsync SignOutAsync kullandık
+        Login Logout tıklamaları için SignInAsync, SignOutAsync kullandık
 
         Task = Görev
         */

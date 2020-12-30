@@ -82,7 +82,7 @@ Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip v
 **AUTHORIZATION(Yetki) ayarlamalarý MVCden biraz farklýdýr	
 	CommonTools klasörü açtýk
 		SessionExtension classý aç "Static" yap  (Sepet iþleminde kullandýðýmýz sessionlar gibi)
-		Session classýnýn içinde metotlarýn Extension olmasý lazým kafamýza göre bir isimlendirme olmaz.
+		Session classýnýn içinde metotlarýn "kompleks" tiplerden dolayý Extension(Get ve Set) olmasý lazým kafamýza göre bir isimlendirme olmaz.
 
 	HomeControllera Login IAcitoný açtýk burada Autherization yapacaðýz. Login ve Logout için async(asekron) metod kullandýk bunu await ile yaptýk ancak metoda async keywordu ve Task<>(Görev) eklemek gerekir.
 
@@ -91,6 +91,6 @@ Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip v
 		Startup->Configure->app.UseAuthorization(); bu metod yetki var mý yok mu kontrol eder.
 		Startup->ConfigureServices->services.AddAuthentication -> authentication iþlemini yapmak için servisi burada yarattmak gerekir.
 		
-	Hangi controllera koyar isek onda Yetkilendirme yapar. Direkt namespace koyarsak listlemeye bile ulaþamayýz
+	****Hangi controllera koyar isek onda Yetkilendirme yapar. Direkt namespace koyarsak listlemeye bile ulaþamayýz
 
 		Burada zaten Configure içinde app.UseAuthorization(Yetkilendirmme için) var ancak "bundan önce" app.UseAuthenticationda eklemek gerekir. Kesinlikle önce Authentication
