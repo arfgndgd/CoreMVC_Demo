@@ -26,5 +26,10 @@ namespace CoreMVC_Demo.Controllers
             };
             return View(pvm);
         }
+
+        public IActionResult AddToCart(int id)
+        {
+            Cart
+        }
     }
 }

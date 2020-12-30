@@ -79,11 +79,18 @@ Controller içindeki Actionlar Interface olarak açýlmalý (actionlarý belirleyip v
 	Kullanýcý rolü gibi parametrelerin düzenlemesini viewlarda yaparýz 
 
 
-**AUTHORIZATION(Yetki) ayarlamalarý MVCden biraz farklýdýr	
+SEPET ÝÞLEMLERÝ
 	CommonTools klasörü açtýk
 		SessionExtension classý aç "Static" yap  (Sepet iþleminde kullandýðýmýz sessionlar gibi)
 		Session classýnýn içinde metotlarýn "kompleks" tiplerden dolayý Extension(Get ve Set) olmasý lazým kafamýza göre bir isimlendirme olmaz.
+	Tools klasörü açtýk
+		CartItem->Namespace "[Serializable]" ekledik. SessionExtension sýnýfýnda Set ve Get metodlarýna verdiðimiz json tipe çevirme keywordu olan JsonConvert'e karþýlýk CartItem sýnýfýna da bu tipe uygun propertyler yazacaðýz. 
+										[JsonProperty("Name")]
+										public string Name { get; set; }
+		Cart->Namespace "[Serializable]" ekledik. Burada sepet görüntüleme, sepete ekleme, silme, toplam fiyat gibi iþlemleri yaptýk. Yalnýzca kullanýcýnýn da gördüðü görüntüleme ve toplam fiyatý json formata çevirdik.
+		
 
+**AUTHORIZATION(Yetki) ayarlamalarý MVCden biraz farklýdýr	
 	HomeControllera Login IAcitoný açtýk burada Autherization yapacaðýz. Login ve Logout için async(asekron) metod kullandýk bunu await ile yaptýk ancak metoda async keywordu ve Task<>(Görev) eklemek gerekir.
 
 	Authentication
