@@ -101,3 +101,18 @@ SEPET ÝÞLEMLERÝ
 	****Hangi controllera koyar isek onda Yetkilendirme yapar. Direkt namespace koyarsak listlemeye bile ulaþamayýz
 
 		Burada zaten Configure içinde app.UseAuthorization(Yetkilendirmme için) var ancak "bundan önce" app.UseAuthenticationda eklemek gerekir. Kesinlikle önce Authentication
+
+
+ALIÞVERÝÞ ÝÞLEMLERÝ (Birisi sayfa configure yapmadý dediðinde dikkat etmemiz gereken Startup.cs içindeki metodlardýr(app.Use...))
+	Kütüphane ekleyeceðiz; Bir çok iliþkilerde örneðin Product içindeki CategoryID'yle Category gelmesi için Lazy Loadingi virtual yapmak yetmez "EntityFrameworkCore.Proxies". 
+	Pool iþleminin yapýldýðý ConfigureServices'ta baðlantý iþleminden sonra ".UseLazyLoadingProxies()" eklememiz lazým.
+	(Eklemezsek null geçer)
+	CustomerController açtýk ve aþaðýdakii IActionlarý kullandýk
+		ShoppingList
+		AddToCart-> Extension metod kullanýmý: Programa gömülü olan HttpContext.Session'ý kullanacaðýz. Ancak biz kendi Sessionlarýmýzý kullanmak istiyoruz (SetObject, GetObject). Bunlarý kullanmak için using eklemek lazým.  
+				Cart var mý yok mu kontrol edip Sessionla cart eklemesi yaptýk ve sepete ürün eklemek için CartItem'dan instance alarak Cart classýndan SepeteEkle'yi burada kullandýk.
+		CartPage -> AddToCart'ta kontrolünü yaptýðýmýz Cart Sessionýný Extension ile burada çaðýrarak sepette ürün var mý kontrolü saðlanýr.
+				Ancak sadece bunu yapmak yeterli deðil Startup.cs içinde ConfigureServices içine "services.AddSession(x =>" ekliyoruz. Daha sonra Congigure içine de "app.UseSession" ekliyoruz.
+
+				**Product Category gibi çoka çok iliþkilerde Lazy Loadingi ayaða kaldýrmak için ProductControllerda Listeleme yaparken Category'de ToList() yapmak önemli yoksa hiçbir iþlem iþe yaramaz
+	

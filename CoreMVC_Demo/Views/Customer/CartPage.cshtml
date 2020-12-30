@@ -1,0 +1,36 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "CartPage";
+}
+
+<h1>CartPage</h1>
+
+
+@if (TempData["mesaj"] != null)
+{
+    <h1>@TempData["mesaj"]</h1>
+}
+
+else
+{
+    <table class="table table-hover">
+        <tr>
+            <td>Ürün İsmi</td>
+            <td>Birim Fiyat</td>
+            <td>Alınan Adet</td>
+            <td>Toplam Fiyat</td>
+        </tr>
+
+        @foreach (CartItem item in Model.Sepetim)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+                <td>@item.Amount</td>
+                <td>@item.SubTotal</td>
+
+            </tr>
+        }
+
+    </table>
+}

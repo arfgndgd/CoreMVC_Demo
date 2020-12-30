@@ -48,7 +48,8 @@ namespace CoreMVC_Demo.Migrations
                         .UseIdentityColumn();
 
                     b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Yaratılma Tarihi");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -59,6 +60,22 @@ namespace CoreMVC_Demo.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("CoreMVC_Demo.Models.Entities.EmployeeProfile", b =>
+                {
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SpecialDetail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Profile");
                 });
 
             modelBuilder.Entity("CoreMVC_Demo.Models.Entities.Order", b =>
@@ -132,6 +149,17 @@ namespace CoreMVC_Demo.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("CoreMVC_Demo.Models.Entities.EmployeeProfile", b =>
+                {
+                    b.HasOne("CoreMVC_Demo.Models.Entities.Employee", "Employee")
+                        .WithOne("EmployeeProfile")
+                        .HasForeignKey("CoreMVC_Demo.Models.Entities.EmployeeProfile", "ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("CoreMVC_Demo.Models.Entities.Order", b =>
                 {
                     b.HasOne("CoreMVC_Demo.Models.Entities.Employee", "Employee")
@@ -180,6 +208,8 @@ namespace CoreMVC_Demo.Migrations
 
             modelBuilder.Entity("CoreMVC_Demo.Models.Entities.Employee", b =>
                 {
+                    b.Navigation("EmployeeProfile");
+
                     b.Navigation("Orders");
                 });
 

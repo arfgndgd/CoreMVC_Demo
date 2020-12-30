@@ -30,7 +30,7 @@
             }
             <td>@item.UnitInPrice</td>
             <td>@item.UnitInStock</td>
-            <td><a asp-controller="Customer" asp-action=""></a></td>
+            <td><a asp-controller="Customer" asp-action="AddToCart" asp-route-id="@item.ID" class="btn btn-primary">Sepete Ekle</a></td>
         </tr>
         }
     </tbody>

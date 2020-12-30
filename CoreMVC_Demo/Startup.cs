@@ -32,7 +32,9 @@ namespace CoreMVC_Demo
             //Burada standart bir Sql baðlantýsý belirlemekk istersek (sýnýf içerisindeki optionBuilderdan belirlemektense bu tercih edilir) burada belirlemelisiniz
 
             //Pool kullanmak bir singletonPattern görevi görür
-            services.AddDbContextPool<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"))); //Baðlantý ayarýmýzý burada belirlemiþþ olduk. Context sýnýfýnda ayarýný yapmamýz lazým 
+            services.AddDbContextPool<MyContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection")).UseLazyLoadingProxies()); //Baðlantý ayarýmýzý burada belirlemiþþ olduk. Context sýnýfýnda ayarýný yapmamýz lazým 
+                      
+            //Yukarýdaki ifadede dikkat ederseniz UseLazyLoadingProxies ifadesi kullanýlmýstýr. Bu durum .NetCore'daki Lazy Loading'in sürekli tetiklenebilmesi adýna environment'inizi garanti altýna almanýzý saglar.
 
 
             //***Önemli: Authentication iþlemini yapabilmek için servisi burada yaratmak gerekir.
@@ -41,6 +43,15 @@ namespace CoreMVC_Demo
 
                 options.LoginPath = "/Home/Login";
 
+            });
+
+
+            //session kullanacak iseniz ayarlamalarýný yapmayý sakýn unutmayýn
+            services.AddSession(x =>
+            {
+                x.IdleTimeout = TimeSpan.FromMinutes(20); //Alýþveriþ boþ durduðunda ne kadar dursun zamanlamasý
+                x.Cookie.HttpOnly = true; //Protokol güvenliði
+                x.Cookie.IsEssential = true; //Bu da güvenlikle ilgili
             });
 
             services.AddControllersWithViews();
@@ -69,11 +80,14 @@ namespace CoreMVC_Demo
             
             app.UseAuthorization(); //Yetkimiz var mý yok mu yani durumlarýnda (Authorization) çalýþacak metotdur.
 
+            //Session'ý ekledikten sonra kullanmayý unutmayacaðýz.
+            app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Product}/{action=Index}/{id?}");
+                    pattern: "{controller=Employee}/{action=AddEmployee}/{id?}");
             });
         }
     }

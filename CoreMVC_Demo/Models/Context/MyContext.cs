@@ -31,7 +31,7 @@ namespace CoreMVC_Demo.Models.Context
         {
             //Ayrı bir katmanda değilde direkt yazmak istersek bu şekilde kullanabiliriz
             //modelBuilder.Entity<OrderDetail>().Property(x => x.ID).UseIdentityColumn();
-
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new OrderDetailConfiguration());
             base.OnModelCreating(modelBuilder);//base'i de korusun diye
         }
@@ -42,6 +42,7 @@ namespace CoreMVC_Demo.Models.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<EmployeeProfile> Profile { get; set; }
 
     }
 

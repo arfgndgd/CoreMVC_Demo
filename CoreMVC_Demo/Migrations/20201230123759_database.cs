@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CoreMVC_Demo.Migrations
 {
-    public partial class baslangic : Migration
+    public partial class database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,7 @@ namespace CoreMVC_Demo.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserRole = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    YaratılmaTarihi = table.Column<DateTime>(name: "Yaratılma Tarihi", type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,6 +82,25 @@ namespace CoreMVC_Demo.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Profile",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false),
+                    SpecialDetail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profile", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Profile_Employees_ID",
+                        column: x => x.ID,
+                        principalTable: "Employees",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Satışlar",
                 columns: table => new
                 {
@@ -124,6 +143,9 @@ namespace CoreMVC_Demo.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Profile");
+
             migrationBuilder.DropTable(
                 name: "Satışlar");
 

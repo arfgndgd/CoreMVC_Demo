@@ -13,6 +13,6 @@ namespace CoreMVC_Demo.Models.Entities
         public UserRole UserRole { get; set; }
         //Relational Properties
         public virtual IList<Order> Orders { get; set; }
-
+        public virtual EmployeeProfile EmployeeProfile { get; set; }
     }
 }
