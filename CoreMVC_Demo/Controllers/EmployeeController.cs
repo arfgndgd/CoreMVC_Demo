@@ -13,7 +13,7 @@ namespace CoreMVC_Demo.Controllers
     //Görevlendirme yapacağız mesela yeni kullanıcı eklerken yetkisi ne olacak gibi
     //Burada ise amaç dropdownlist kullanarak UserRole enumından seçim yaptıracağız
 
-    /*[Authorize(Roles = "Admin")]*///Hangi controllera koyar isek onda Yetkilendirme yapar. Direkt namespace koyarsak listlemeye bile ulaşamayız
+    [Authorize(Roles = "Admin")]//Hangi controllera koyar isek onda Yetkilendirme yapar. Direkt namespace koyarsak listlemeye bile ulaşamayız
     public class EmployeeController : Controller
     {
         MyContext _db;
