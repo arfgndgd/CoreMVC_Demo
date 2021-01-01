@@ -11,6 +11,7 @@ namespace CoreMVC_Demo.Models.Entities
         public string FirstName { get; set; }
 
         public UserRole UserRole { get; set; }
+
         //Relational Properties
         public virtual IList<Order> Orders { get; set; }
         public virtual EmployeeProfile EmployeeProfile { get; set; }

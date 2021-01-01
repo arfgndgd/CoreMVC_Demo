@@ -116,3 +116,23 @@ ALIÞVERÝÞ ÝÞLEMLERÝ (Birisi sayfa configure yapmadý dediðinde dikkat etmemiz ger
 
 				**Product Category gibi çoka çok iliþkilerde Lazy Loadingi ayaða kaldýrmak için ProductControllerda Listeleme yaparken Category'de ToList() yapmak önemli yoksa hiçbir iþlem iþe yaramaz
 	
+Employee Controlllerlarý yapýldý
+
+
+SOLID
+	SRP => Single Reponsibility Principle
+	Bir sýnýfta hem resim ekleme hem mail gönderme yapýlmamalý sorumluluklar ayrýlmalý
+
+	OCP => Open Closed Principle
+	Sýnýflar ve metotlar geniþletilmeye acýk, degiþiklige kapalý olmalýdýr(kaynak kod deðiþtirmeye kapalý).
+    Her ihtiyac degiþtiginde, yazdýgýmzý kodu kökten degiþtirmek zorunda kalmamalýyýz. Tek bir using ifadesi deðiþtirerek projeyi farklý platform için kullanabilmeliyiz
+	Projemizde bir class eklemek istediðimizde kaynak kodlarýmýzý deðiþtirmemize gerek olmamalý. Baseden miras alýp her þeyi tamamlamýþ olmamýz lazým, Map katmanýndaki gibi BaseMapte buna yardýmcý olmalý.
+
+	LSP => Liskov Substitution Principle(Yerine geçme prensibi)
+	Bir class ta bulunan özellikler, kendisinden kalýtým alan class’larda kullanýlmayacaksa bu durum LSP’ye aykýrý bir durumdur. Mesela "abstract KlimaCalistir metodunun" olduðu bir baseden hem tofaþa hem ferrariye override edip özellik verilmez. Interface kullanýmý ile farklý metodlar farklý araçlarda kullanýlabilir.
+
+	ISP => Interface Segregation Principle 
+	Interfacelerin ayrý ayrý görevleri tek bir çatý altýnda toplamaktansa sorumluluklarýný daha fazla ayýrmaktýr. Mesela Repositoryleri açtýðýmýzda her class için ayrý repository açarýz. (ICategoryRepository, IProductRepository)
+
+	DIP => Dependency Inversion Principle
+	Baðýmlýlýklarýn azalmasý, gevþek tutulmasýdýr. Interface segragation ile zaten sorumluluklarý azalttýk bu da dependency inversiona uyar.
